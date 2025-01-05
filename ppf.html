@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <link rel="icon" href="https://cdn-icons-png.flaticon.com/512/4270/4270486.png">
+    <title>PPF Calculator</title>
+    <style>
+        body{
+            background-color:powderblue;
+            font-style: oblique;
+            font-size: large;
+        }
+        button{
+            background-color: dodgerblue;
+        }
+    </style>
+</head>
+<body>
+
+    <h1 class="text-center my-3">PPF Calculator</h1>
+    <div class="container">
+        <div class="card">
+
+           <div class="d-flex flex-column align-items-center mb-3 mx-3">
+            <label class="form-label my-2">Investment Amount</label><br>
+            <input type="number" id="amount" class="form-control w-25">
+           </div>
+
+           <div class="d-flex flex-column align-items-center mb-3 mx-3">
+            <label class="form-label">Frequency of Investment</label><br>
+            <select id="frequency" class="form-select w-25">
+                <option value="1">Yearly</option>
+                <option value="12">Monthly</option>
+                <option value="2">Half-Yearly</option>
+                <option value="4">Quarterly</option>
+            </select>
+           </div>
+
+           <div class="d-flex flex-column align-items-center mb-3 mx-3">
+            <label class="form-label">Interest Rate (%)</label><br>
+            <input type="number" id="rate" class="form-control w-25">
+           </div>
+
+           <div class="d-flex flex-column align-items-center mb-3 mx-3">
+            <label class="form-label">Duration</label><br>
+            <input type="number" id="duration" class="form-control w-25">
+           </div>
+
+    <div class="d-flex justify-content-center align-items-center">
+    <button class="btn-btn-info mx-3 mb-3 w-25 rounded border-primary py-2 fw-bold fs-5 fst-italic text-center " onclick="calculatePPF()">Calculate</button>
+    </div>
+    
+        <div class="d-flex flex-column align-items-center mx-3 mb-3">
+            <p>Total Investment<span id="total">:</span></p>
+            <p>Maturity Amount<span id="maturity">:</span></p>
+        </div>
+    
+        </div>
+    </div>
+
+    <script>
+
+    function calculatePPF(){
+        const amount=parseFloat(document.getElementById("amount").value);
+        const frequency=parseFloat(document.getElementById("frequency").value);
+        const rate=parseFloat(document.getElementById("rate").value)/100;
+        const duration=parseFloat(document.getElementById("duration").value);
+         
+        const n=duration*frequency;
+            const i=rate/frequency;
+            const total=amount*n;
+            const maturity=amount*(((1+i)**n-1)/i)*(1+i);
+        if(amount&&frequency&&rate&&duration){
+
+            document.getElementById("total").textContent = `₹${total.toFixed(2)}`;
+            document.getElementById("maturity").textContent = `₹${maturity.toFixed(2)}`;
+
+        }
+        else{
+            alert("Please enter all valid inputs")
+        }
+    }
+      
+    </script>
+
+</body>
+</html>
